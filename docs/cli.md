@@ -36,6 +36,9 @@ All commands support these global options:
 | `inject-docs` | Inject documentation into code | ✅ |
 | `mode` | View or set collaboration mode | ✅ |
 | `review` | Context-aware code review preparation | ✅ |
+| `doc:new` | Interactively create a new project document | ✅ |
+| `doc:validate` | Validate project documentation | ✅ |
+| `doc:sync` | Generate documentation from source code | ✅ |
 
 ---
 
@@ -382,6 +385,100 @@ Available context:
 • Documentation context is loaded and ready
 • Use this context in your AI agent for code review
 • Review will be conducted in full mode
+```
+
+---
+
+---
+
+## Documentation Commands
+
+Commands for creating, validating, and synchronizing documentation within the `.project` directory.
+
+---
+
+### `handoff-ai doc:new`
+
+Interactively create a new project document (e.g., Epic, BDD, Golden Path) from a predefined template.
+
+#### Usage
+```bash
+handoff-ai doc:new
+```
+
+#### Interactive Session Example
+```bash
+$ handoff-ai doc:new
+? What type of documentation do you want to create? Epic
+? What is the title of the Epic? My New Feature
+? Provide a brief description: A feature to do amazing things.
+
+Successfully created new document at: /path/to/your/project/.project/my-new-feature.md
+```
+
+---
+
+### `handoff-ai doc:validate`
+
+Validate all Markdown documentation within the `.project` directory. This command performs two checks:
+1.  **Linting:** Enforces style and structure rules.
+2.  **Link Checking:** Verifies that all internal links point to existing files.
+
+#### Usage
+```bash
+handoff-ai doc:validate
+```
+
+#### Example Output
+```bash
+Running documentation validation...
+
+[1/2] Running Markdown linter...
+✅ No linting issues found.
+
+[2/2] Checking for broken links...
+Broken links found:
+  - In "/path/to/.project/some-doc.md": link to "./non-existent.md" is broken.
+
+Validation failed.
+```
+
+---
+
+### `handoff-ai doc:sync`
+
+Automatically generate or update documentation by extracting information from your source code. This initial version scans for JSDoc comments containing a `@feature` tag.
+
+#### Usage
+```bash
+handoff-ai doc:sync
+```
+
+#### How It Works
+1.  Scans `.js` files in the `lib/` directory.
+2.  Looks for JSDoc comments like `/** @feature My Feature */`.
+3.  Groups all comments by their feature tag.
+4.  Creates or updates a corresponding Markdown file in `.project/features/`.
+
+#### Example
+Given this code in `lib/auth.js`:
+```javascript
+/**
+ * @feature Authentication
+ * @description Handles user login.
+ */
+function login() { /* ... */ }
+```
+
+Running `handoff-ai doc:sync` will create/update `.project/features/authentication.md` with the content from the comment block.
+
+```bash
+$ handoff-ai doc:sync
+Running documentation synchronization...
+Found 1 features. Writing files...
+  - Wrote documentation for "Authentication" to /path/to/.project/features/authentication.md
+
+Synchronization complete!
 ```
 
 ---
