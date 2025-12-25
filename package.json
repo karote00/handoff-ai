@@ -39,7 +39,7 @@
     "commander": "^12.1.0",
     "fs-extra": "^11.3.0",
     "glob": "^11.0.3",
-    "inquirer": "^8.2.6",
+    "inquirer": "^8.2.7",
     "ora": "^5.4.1"
   },
   "devDependencies": {

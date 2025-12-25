@@ -12,6 +12,7 @@ const { templatesCommand } = require('../lib/commands/templates');
 const { injectDocsCommand } = require('../lib/commands/inject-docs');
 const { modeCommand } = require('../lib/commands/mode');
 const { reviewCommand } = require('../lib/commands/review');
+const createDoc = require('../lib/commands/doc-new');
 
 // Read version from package.json
 const packageJson = require('../package.json');
@@ -79,5 +80,10 @@ program
     .option('-d, --dry-run', 'Show available context without performing review')
     .option('-v, --verbose', 'Show detailed context information')
     .action(reviewCommand);
+
+program
+    .command('doc:new')
+    .description('Interactively create a new project document (Epic, BDD, etc.)')
+    .action(require('../lib/commands/doc-new'));
 
 program.parse();
