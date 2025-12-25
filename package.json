@@ -1,6 +1,6 @@
 {
   "name": "handoff-ai",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "AI collaboration framework for persistent project knowledge and smooth handoffs",
   "main": "index.js",
   "bin": {
