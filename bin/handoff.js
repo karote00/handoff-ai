@@ -14,6 +14,7 @@ const { modeCommand } = require('../lib/commands/mode');
 const { reviewCommand } = require('../lib/commands/review');
 const createDoc = require('../lib/commands/doc-new');
 const validateDocs = require('../lib/commands/doc-validate');
+const syncDocs = require('../lib/commands/doc-sync');
 
 // Read version from package.json
 const packageJson = require('../package.json');
@@ -91,5 +92,10 @@ program
     .command('doc:validate')
     .description('Validate project documentation (linting, broken links)')
     .action(require('../lib/commands/doc-validate'));
+
+program
+    .command('doc:sync')
+    .description('Generate documentation from source code comments')
+    .action(require('../lib/commands/doc-sync'));
 
 program.parse();
