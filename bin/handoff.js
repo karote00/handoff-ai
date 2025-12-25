@@ -13,6 +13,7 @@ const { injectDocsCommand } = require('../lib/commands/inject-docs');
 const { modeCommand } = require('../lib/commands/mode');
 const { reviewCommand } = require('../lib/commands/review');
 const createDoc = require('../lib/commands/doc-new');
+const validateDocs = require('../lib/commands/doc-validate');
 
 // Read version from package.json
 const packageJson = require('../package.json');
@@ -85,5 +86,10 @@ program
     .command('doc:new')
     .description('Interactively create a new project document (Epic, BDD, etc.)')
     .action(require('../lib/commands/doc-new'));
+
+program
+    .command('doc:validate')
+    .description('Validate project documentation (linting, broken links)')
+    .action(require('../lib/commands/doc-validate'));
 
 program.parse();
